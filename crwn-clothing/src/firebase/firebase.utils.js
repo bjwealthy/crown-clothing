@@ -13,27 +13,22 @@ const config = {
     measurementId: "G-HDMH4BCXM9"
 };
 
-//store user from firestore into firebase
 export const createUserProfileDocument = async(userAuth, additionalData) => {
-    //if the user exists
     if(!userAuth) return;
-    //else, create a new user in the db
     const userRef = firestore.doc(`users/${userAuth.uid}`);
-    const snapShot = await userRef.get();   
+    const snapShot = await userRef.get();
+    
     if(!snapShot.exists){
         const {displayName, email} = userAuth;
         const createdAt = new Date();
-        
-        //bcos we're making an async request to the db:
+
         try{
-            await userRef.set(
-                {
+            await userRef.set({
                 displayName,
                 email,
                 createdAt,
                 ...additionalData
-                }
-            )
+            })
         }catch(error){
             console.log('error creating user', error.message)
         }

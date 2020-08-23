@@ -31,12 +31,11 @@ class App extends React.Component {
               id: snapShot.id,
               ...snapShot.data()
             }
-          });
-          console.log(this.state);
+          })
         });
         
       }
-      //set currentUser to null if user is signed out
+
       this.setState({ currentUser: userAuth });
     });
   }
